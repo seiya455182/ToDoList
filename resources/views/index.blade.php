@@ -11,7 +11,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="input-group">
-              <form method="POST" action="{{ route('posts')}}">
+              <form method="POST" action="{{ route('todo.store')}}">
                 @csrf
                 <span class="input-group-btn">
                   <input name="todo" type="text" class="form-control" placeholder="やること">
@@ -24,11 +24,11 @@
           <form
             style="display: inline-block;"
             method="POST"
-            action=""
-            >
+            action="{{ route('todo.destroy',$list->id) }}" >
               @csrf
+              @method('DELETE')
               <li class="list-group-item">{{ $list->todo }}</li>
-              <button class="btn btn-danger">完了</button>
+              <button type="submit" class="btn btn-danger">完了</button>
           </form>
           @endforeach
         </ul>

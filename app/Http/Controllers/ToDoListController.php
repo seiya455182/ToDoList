@@ -17,6 +17,7 @@ class ToDoListController extends Controller
 
     public function store(Request $request)
     {
+
       $user = Auth::user();
       $data = $request->validate([
         'todo' =>'required|string|max:10'
@@ -24,12 +25,13 @@ class ToDoListController extends Controller
       $data['user_id'] = $user->id;
       ToDoList::create($data);
 
-      return redirect()->route('index');
+      return redirect()->route('todo.index');
     }
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-
-
+      $todo_delete = ToDoList::findOrFail($id);
+      $todo_delete->delete();
+      return redirect()->route('todo.index');
     }
 }

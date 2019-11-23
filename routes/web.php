@@ -18,5 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('index','ToDoListController@index')->name('index');
-Route::post('posts','ToDoListController@store')->name('posts');
+// Route::get('index','ToDoListController@index')->name('index');
+// Route::post('posts','ToDoListController@store')->name('posts');
+// Route::post('destroy', 'ToDoListController@destroy')->name('destroy');
+Route::group(['middleware' => 'auth'], function() {
+  Route::resource('todo','ToDoListController',['only'=>['index','store','destroy']]);
+});
